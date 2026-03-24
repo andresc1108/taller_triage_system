@@ -10,10 +10,6 @@ from backend import (
     TRIAGE_CONFIG, HospitalQueue
 )
 
-# ─────────────────────────────────────────────────────────
-# CONFIG & STATE
-# ─────────────────────────────────────────────────────────
-
 st.set_page_config(
     page_title="ER Triage System",
     page_icon="🏥",
@@ -25,10 +21,6 @@ if "queue" not in st.session_state:
     st.session_state.queue = HospitalQueue()
 
 queue: HospitalQueue = st.session_state.queue
-
-# ─────────────────────────────────────────────────────────
-# ESTILOS
-# ─────────────────────────────────────────────────────────
 
 st.markdown("""
 <style>
@@ -206,10 +198,6 @@ h1, h2, h3 { font-family: 'IBM Plex Mono', monospace; }
 </style>
 """, unsafe_allow_html=True)
 
-# ─────────────────────────────────────────────────────────
-# HELPERS
-# ─────────────────────────────────────────────────────────
-
 def triage_color(level: TriageLevel) -> str:
     return TRIAGE_CONFIG[level]["color"]
 
@@ -267,10 +255,6 @@ def render_patient_card(patient: Patient, stats: dict, show_actions: bool = True
                 queue.delete_patient(patient.id)
                 st.rerun()
 
-# ─────────────────────────────────────────────────────────
-# SIDEBAR – REGISTRO DE PACIENTE
-# ─────────────────────────────────────────────────────────
-
 with st.sidebar:
     st.markdown("""
     <div style="text-align:center; padding: 16px 0 24px;">
@@ -285,18 +269,18 @@ with st.sidebar:
     st.markdown('<div class="section-header">Registrar Paciente</div>', unsafe_allow_html=True)
 
     with st.form("registro_paciente", clear_on_submit=True):
-        # ── Datos básicos ──
+        # Datos basicos 
         col1, col2 = st.columns(2)
         with col1:
-            nombre = st.text_input("Nombre completo", placeholder="Ej: Juan Pérez")
+            nombre = st.text_input("Nombre completo", placeholder="Ej: Andrés Criollo")
         with col2:
             edad = st.number_input("Edad", min_value=0, max_value=120, value=35)
 
         genero = st.selectbox("Género", ["Masculino", "Femenino", "Otro"])
-        motivo = st.text_input("Motivo de consulta", placeholder="Ej: Dolor pecho intenso")
+        motivo = st.text_input("Motivo de consulta", placeholder="Ej: Accidente de transito, dolor abdominal intenso")
 
         sintomas_raw = st.text_area(
-            "Síntomas adicionales (separados por coma)",
+            "Síntomas adicionales (separelos por coma)",
             placeholder="Ej: náuseas, sudoración, dificultad respiratoria",
             height=80
         )
@@ -317,7 +301,7 @@ with st.sidebar:
         dolor = st.slider("Dolor EVA (0-10)", 0, 10, 0)
         consciencia = st.selectbox("Consciencia (AVPU)", ["Alerta", "Responde a voz", "Responde a dolor", "Inconsciente"])
 
-        submitted = st.form_submit_button("⚡ Registrar y Clasificar", type="primary", use_container_width=True)
+        submitted = st.form_submit_button(" Registrar y Clasificar", type="primary", use_container_width=True)
 
     if submitted and nombre and motivo:
         vs = VitalSigns(
@@ -338,13 +322,10 @@ with st.sidebar:
         )
         registered = queue.register_patient(patient)
         cfg = TRIAGE_CONFIG[registered.triage_level]
-        st.success(f"✅ Paciente registrado · Triage: {cfg['badge']} {cfg['name']}")
+        st.success(f" Paciente registrado · Triage: {cfg['badge']} {cfg['name']}")
     elif submitted:
         st.error("Por favor completa nombre y motivo de consulta.")
 
-# ─────────────────────────────────────────────────────────
-# HEADER PRINCIPAL
-# ─────────────────────────────────────────────────────────
 
 st.markdown("""
 <div style="display:flex; align-items:center; gap:16px; margin-bottom:8px;">
@@ -362,9 +343,6 @@ st.markdown("""
 
 stats = queue.get_statistics()
 
-# ─────────────────────────────────────────────────────────
-# MÉTRICAS
-# ─────────────────────────────────────────────────────────
 
 m1, m2, m3, m4, m5 = st.columns(5)
 metrics = [
@@ -388,7 +366,7 @@ if stats["overdue_patients"]:
     st.markdown(f"""
     <div style="background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.5);
                 border-radius:10px; padding:12px 18px; margin:16px 0;">
-        🚨 <b>{len(stats["overdue_patients"])} paciente(s)</b> han excedido el tiempo máximo de espera según su triage.
+         <b>{len(stats["overdue_patients"])} paciente(s)</b> han excedido el tiempo máximo de espera según su triage.
     </div>
     """, unsafe_allow_html=True)
 

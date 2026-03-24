@@ -1,4 +1,4 @@
-# 🏥 Sistema de Triage y Flujo de Sala de Urgencias
+# Sistema de Triage y Flujo de Sala de Urgencias
 
 Sistema basado en la **Escala de Manchester (MTS)** para gestión de pacientes en urgencias hospitalarias.
 
@@ -33,11 +33,11 @@ El nivel final es el **más crítico** de los tres factores combinados.
 
 ## Funcionalidades
 
-- ✅ Registro de pacientes con signos vitales completos
-- ✅ Clasificación automática por Escala Manchester
-- ✅ Cola de atención ordenada por prioridad y tiempo de llegada
-- ✅ Alertas de tiempo de espera excedido
-- ✅ Flujo: En Espera → En Atención → Alta/Transferido
-- ✅ Estadísticas en tiempo real
-- ✅ Reclasificación manual por el médico
-- ✅ Auto-refresh cada 30 segundos
+- Registro de pacientes con signos vitales completos
+- Clasificación automática por Escala Manchester
+- Cola de atención ordenada por prioridad y tiempo de llegada
+- Alertas de tiempo de espera excedido
+- Flujo: En Espera → En Atención → Alta/Transferido
+- Estadísticas en tiempo real
+- Reclasificación manual por el médico
+- Auto-refresh cada 30 segundos
